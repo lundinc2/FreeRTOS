@@ -1,0 +1,15 @@
+# git
+.git
+.gitattributes
+.gitignore
+.gitmodules
+
+
+# docs
+*.txt
+*.md
+*.url
+*.diff
+
+# Test
+**/Test

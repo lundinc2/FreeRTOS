@@ -142,13 +142,11 @@ int main( void )
 	{
 		/* Initialise the trace recorder.  Use of the trace recorder is optional.
 		See http://www.FreeRTOS.org/trace for more information. */
-		vTraceEnable( TRC_START );
 
 		/* Start the trace recording - the recording is written to a file if
 		configASSERT() is called. */
 		printf( "\r\nTrace started.\r\nThe trace will be dumped to disk if a call to configASSERT() fails.\r\n" );
 		printf( "Uncomment the call to kbhit() in this file to also dump trace with a key press.\r\n" );
-		uiTraceStart();
 	}
 	#endif
 
@@ -311,14 +309,11 @@ static void prvSaveTraceFile( void )
 	{
 	FILE * pxOutputFile;
 
-		vTraceStop();
 
 		pxOutputFile = fopen( "Trace.dump", "wb" );
 
 		if( pxOutputFile != NULL )
 		{
-			fwrite( RecorderDataPtr, sizeof( RecorderDataType ), 1, pxOutputFile );
-			fclose( pxOutputFile );
 			printf( "\r\nTrace output saved to Trace.dump\r\n" );
 		}
 		else

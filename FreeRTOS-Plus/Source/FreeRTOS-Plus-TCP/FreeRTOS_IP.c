@@ -2630,7 +2630,6 @@ EthernetHeader_t *pxEthernetHeader;
 							   uxCurrentBufferCount ) );
 		}
 
-		uxMinSize = xPortGetMinimumEverFreeHeapSize();
 		if( uxMinLastSize == 0U )
 		{
 			/* Probably the first time this function is called. */
@@ -2644,7 +2643,6 @@ EthernetHeader_t *pxEthernetHeader;
 		else if( ( uxMinLastSize * ipMONITOR_PERCENTAGE_90 ) > ( uxMinSize * ipMONITOR_PERCENTAGE_100 ) )
 		{
 			uxMinLastSize = uxMinSize;
-			FreeRTOS_printf( ( "Heap: current %lu lowest %lu\n", xPortGetFreeHeapSize(), uxMinSize ) );
 		}
 		else
 		{

@@ -614,7 +614,6 @@ TaskHandle_t xIdleTaskHandle, xTimerTaskHandle;
 char *pcTaskName;
 static portBASE_TYPE xPerformedOneShotTests = pdFALSE;
 TaskHandle_t xTestTask;
-TaskStatus_t xTaskInfo;
 extern StackType_t uxTimerTaskStack[];
 static uint32_t ulLastIdleExecutionTime = 0;
 uint32_t ulIdleExecutionTime;
@@ -669,20 +668,8 @@ uint32_t ulIdleExecutionTime;
 	}
 
 	/* Also with the vTaskGetInfo() function. */
-	vTaskGetInfo( xTimerTaskHandle, /* The task being queried. */
-					  &xTaskInfo,		/* The structure into which information on the task will be written. */
-					  pdTRUE,			/* Include the task's high watermark in the structure. */
-					  eInvalid );		/* Include the task state in the structure. */
 
 	/* Check the information returned by vTaskGetInfo() is as expected. */
-	if( ( xTaskInfo.eCurrentState != eBlocked )						 ||
-		( strcmp( xTaskInfo.pcTaskName, "Tmr Svc" ) != 0 )			 ||
-		( xTaskInfo.uxCurrentPriority != configTIMER_TASK_PRIORITY ) ||
-		( xTaskInfo.pxStackBase != uxTimerTaskStack )				 ||
-		( xTaskInfo.xHandle != xTimerTaskHandle ) )
-	{
-		pcStatusMessage = "Error:  vTaskGetInfo() returned incorrect information about the timer task";
-	}
 
 	/* Other tests that should only be performed once follow.  The test task
 	is not created on each iteration because to do so would cause the death
