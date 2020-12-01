@@ -37,3 +37,9 @@
 [submodule "FreeRTOS-Plus/Source/Utilities/backoff_algorithm"]
 	path = FreeRTOS-Plus/Source/Utilities/backoff_algorithm
 	url = https://github.com/FreeRTOS/backoffAlgorithm.git
+[submodule "FreeRTOS/Test/CBMC2/aws-templates-for-cbmc-proofs"]
+	path = FreeRTOS/Test/CBMC2/aws-templates-for-cbmc-proofs
+	url = https://github.com/awslabs/aws-templates-for-cbmc-proofs
+[submodule "FreeRTOS/Test/CBMC2/aws-build-accumulator"]
+	path = FreeRTOS/Test/CBMC2/aws-build-accumulator
+	url = https://github.com/awslabs/aws-build-accumulator.git
