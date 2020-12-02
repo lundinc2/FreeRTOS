@@ -1,25 +1,51 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 /*
- * Insert copyright notice
+ * FreeRTOS memory safety proofs with CBMC.
+ * Copyright (C) 2019 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * http://aws.amazon.com/freertos
+ * http://www.FreeRTOS.org
  */
 
-/**
- * @file pvPortMalloc_harness.c
- * @brief Implements the proof harness for pvPortMalloc function.
- */
+#include "FreeRTOS.h"
 
-/*
- * Insert project header files that
- *   - include the declaration of the function
- *   - include the types needed to declare function arguments
- */
+static BaseType_t xPortEntries = 0;
+void vPortEnterCritical( void )
+{
+  xPortEntries++;
+}
 
-void harness()
+void vPortExitCritical( void )
+{
+  xPortEntries--;
+}
+void vApplicationMallocFailedHook( void )
 {
 
-  /* Insert argument declarations */
+}
 
-  pvPortMalloc( /* Insert arguments */ );
+
+void harness() {
+  size_t xWantedSize;
+  pvPortMalloc( xWantedSize );
+  __CPROVER_assert( xPortEntries == 0, "The critical section should be exited if entered.");
 }

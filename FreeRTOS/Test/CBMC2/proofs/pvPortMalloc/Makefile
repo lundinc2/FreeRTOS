@@ -9,12 +9,14 @@ HARNESS_FILE = pvPortMalloc_harness
 PROOF_UID = pvPortMalloc
 
 DEFINES +=
-INCLUDES +=
+INCLUDES += -I$(SRCDIR)/FreeRTOS/Source/include
+INCLUDES += -I$(PROOFDIR)/../../config
+INCLUDES += -I$(PROOFDIR)/../../stubs
 
 REMOVE_FUNCTION_BODY +=
 UNWINDSET +=
 
 PROOF_SOURCES += $(PROOFDIR)/$(HARNESS_FILE).c
-PROJECT_SOURCES += $(SRCDIR)/Source/portable/MemMang/heap_2.c
+PROJECT_SOURCES += $(SRCDIR)/FreeRTOS/Source/portable/MemMang/heap_2.c
 
 include ../Makefile.common
